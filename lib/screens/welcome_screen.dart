@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zuri_chat/components/rounded_button.dart';
 import 'package:zuri_chat/constants.dart';
+import 'package:zuri_chat/screens/chat_screen.dart';
 import 'package:zuri_chat/screens/home.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
     if (userLoggedIn) {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => Home()));
+          .push(MaterialPageRoute(builder: (context) => ChatScreen()));
     } else {
       setState(() {
         pageInitialised = true;
@@ -82,7 +83,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         sharedPreferences.setString("profile_pic", firebaseUser.photoURL);
 
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => Home()));
+            .push(MaterialPageRoute(builder: (context) => ChatScreen()));
       } else {
         ///Old user
 
@@ -91,7 +92,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         sharedPreferences.setString("profile_pic", result[0]["profile_pic"]);
 
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => Home()));
+            .push(MaterialPageRoute(builder: (context) => ChatScreen()));
       }
     }
   }

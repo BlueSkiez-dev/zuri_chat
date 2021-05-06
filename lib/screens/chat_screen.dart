@@ -61,8 +61,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: ListView.builder(
                   controller: scrollController,
                   itemBuilder: (listContext, index) =>
-                      buildItem(snapshot.data.documents[index]),
-                  itemCount: snapshot.data.documents.length,
+                      buildItem(snapshot.data.docs[index]),
+                  itemCount: snapshot.data.docs.length,
                   reverse: true,
                 )),
                 Row(
@@ -125,7 +125,9 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  buildItem(doc) {
+  buildItem(
+    doc,
+  ) {
     return Padding(
       padding: EdgeInsets.only(
           top: 8.0,
@@ -139,7 +141,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ? Colors.grey
                 : Colors.greenAccent),
             borderRadius: BorderRadius.circular(8.0)),
-        child: (doc['tyoe'] == 'text')
+        child: (doc['type'] == 'text')
             ? Text('${doc['content']}')
             : Image.network(doc['content']),
       ),
