@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:zuri_chat/widgets/chat_box.dart';
 import 'package:zuri_chat/widgets/side_menu.dart';

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:zuri_chat/providers/app.dart';
+import 'package:zuri_chat/providers/auth.dart';
 import 'package:zuri_chat/widgets/custom_text.dart';
+
+import 'home.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    final AppProvider appProvider = Provider.of<AppProvider>(context);
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(
@@ -26,8 +33,21 @@ class AuthenticationScreen extends StatelessWidget {
             height: 20,
           ),
           GestureDetector(
-            onTap: () {
-              HomeScreen().launch(context);
+            onTap: () async {
+              appProvider.changeLoading();
+              Map result = await authProvider.signInWithGoogle();
+              bool success = result['success'];
+              String message = result['message'];
+              print(message);
+
+              if (!success) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(message)));
+                appProvider.changeLoading();
+              } else {
+                appProvider.changeLoading();
+                HomeScreen().launch(context);
+              }
             },
             child: Container(
               width: 300,
